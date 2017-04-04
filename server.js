@@ -3,6 +3,7 @@ var BodyParser = require('body-parser');
 var Jade = require('jade');
 var Typeset = require('./typeset.js');
 var util = require('util');
+var unescape = require('unescape');
 
 var SERVER = process.env.SERVER || '127.0.0.1';
 var PORT = process.env.PORT || '8080';
@@ -14,7 +15,7 @@ router.get('/', function(req, res) {
 });
 router.post('/typeset', function(req, res) {
   var cd = new Date();
-  var requestString = req.body.text;
+  var requestString = unescape(req.body.text);
   var bpr = 'math\\!';
   console.log(cd + ":" + requestString);
   console.log( " going to send "+bpr );

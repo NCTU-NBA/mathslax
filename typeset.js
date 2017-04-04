@@ -2,7 +2,7 @@ var MathJax = require('mathjax-node-svg2png');
 var _ = require('underscore');
 var Q = require('q');
 var fs = require('fs');
-var jsSHA = require("jssha");
+var jsSHA = require('jssha');
 
 MathJax.start();
 
