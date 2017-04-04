@@ -9,6 +9,7 @@
     "mathjax-node": "1.0.0",
     "mathjax-node-svg2png": "1.0.2",
     "q": "1.0.1",
-    "underscore": "1.7.0"
+    "underscore": "1.7.0",
+    "unescape": "^0.2.0"
   }
 }
