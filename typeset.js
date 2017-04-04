@@ -2,6 +2,7 @@ var MathJax = require('mathjax-node-svg2png');
 var _ = require('underscore');
 var Q = require('q');
 var fs = require('fs');
+var jsSHA = require("jssha");
 
 MathJax.start();
 
@@ -21,6 +22,14 @@ var extractRawMath = function(text, prefix) {
   return results;
 };
 
+const renderFilename = function(str) {
+  var shaObj = new jsSHA('SHA-256', 'TEXT');
+
+  shaObj.update(str);
+
+  return shaObj.getHash("HEX") + '.png';
+}
+
 var renderMath = function(mathObject, parseOptions) {
   var defaultOptions = {
     math: mathObject.input,
@@ -39,7 +48,7 @@ var renderMath = function(mathObject, parseOptions) {
       deferred.reject(mathObject);
       return;
     }
-    var filename = encodeURIComponent(mathObject.input).replace(/\%/g, 'pc') + '.png';
+    var filename =renderFilename(mathObject.input);
     var filepath = 'static/' + filename;
     if (!fs.existsSync(filepath)) {
       console.log('writing new PNG: %s', filename);
