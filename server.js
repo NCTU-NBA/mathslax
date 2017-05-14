@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 });
 router.post('/typeset', function(req, res) {
   var cd = new Date();
-  var requestString = unescape(req.body.text);
+  var requestString = unescape(req.body.text).replace(/\n/g, ' ');
   var bpr = 'math\\!';
   console.log(cd + ":" + requestString);
   console.log( " going to send "+bpr );
@@ -35,6 +35,7 @@ router.post('/typeset', function(req, res) {
   var promiseError = function(error) {
     console.log('Error in typesetting:');
     console.log(error);
+    res.json({'text': '```\n' + error.output.errors[0] + '\n```' });
     res.end(); // Empty 200 response.
   };
   typesetPromise.then(promiseSuccess, promiseError);
